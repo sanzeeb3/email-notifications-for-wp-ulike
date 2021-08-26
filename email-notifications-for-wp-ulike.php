@@ -37,7 +37,7 @@ add_action(
 			$comment = get_comment( absint( $id ) );
 			$comment = ! empty( $comment->comment_content ) ? $comment->comment_content : '';
 
-			$message = 'Oh hi, there\'s a like on comment:' . $comment;
+			$message = 'Oh hi, there\'s a like on comment - ' . $comment;
 
 		}
 

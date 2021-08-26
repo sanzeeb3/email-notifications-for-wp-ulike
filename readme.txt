@@ -12,7 +12,7 @@ Sends email notification whenever you got a like on a post or comment.
 
 == Description ==
 
-Sends email notification to you (site administrator) whenever you got a like on a post or comment.
+Sends email notification to you (site administrator) whenever you got a like on a post or comment. 👍 >> 📧
 
 
 == Changelog ==
