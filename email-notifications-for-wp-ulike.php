@@ -32,16 +32,18 @@ add_action(
 			$author_email = get_the_author_meta( 'user_email', $author_id );
 
 			$title    = get_the_title( absint( $id ) );
-			$message  = 'Oh hi, there\'s a like on your post - <i>' . $title . '</i>';
+			$message  = 'Oh hi, there\'s a new LIKE on your post - <i>' . $title . '</i>';
+			$message .= '<br><br>Total number of likes: ' . wp_ulike_get_post_likes( $id ) . '</i>';
 			$message .= '<br><br>Post Link: ' . get_permalink( $id );
 
 		} elseif ( '_commentliked' === $key && 'like' === $status ) {
 
 			$comment         = get_comment( absint( $id ) );
-			$comment_content = ! empty( $comment->comment_content ) ? $comment->comment_content : '';
+			$comment_content = wpautop( get_comment_text( $id ), true );
 			$author_email    = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
 
-			$message  = 'Oh hi, there\'s a like on your comment: <br><br><i> ' . $comment_content . '</i>';
+			$message  = 'Oh hi, there\'s a new LIKE on your comment: <br><br><i> ' . $comment_content . '</i>';
+			$message .= '<br><br>Total number of likes: ' . wp_ulike_get_comment_likes( $id ) . '</i>';
 			$message .= '<br><br>Post Link: ' . get_permalink( $comment->comment_post_ID );
 
 		} else {
