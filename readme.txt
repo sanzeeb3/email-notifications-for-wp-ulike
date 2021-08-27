@@ -14,6 +14,11 @@ Sends email notification whenever you got a like on a post or comment.
 
 Sends email notification to you (site administrator) whenever you got a like on a post or comment. 👍 >> 📧
 
+Install and activate the plugin -- that's it. Absolutely no configuration required.
+
+== Frequently Asked Questions ==
+
+No questions yet.
 
 == Changelog ==
 
