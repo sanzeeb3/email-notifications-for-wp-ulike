@@ -17,45 +17,30 @@
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'EMAIL_NOTIFICATIONS_FOR_WP_ULIKE', __FILE__ );
+
 /**
- * Literally, the initial plugin.
+ * Plugin version.
  *
- * @since 1.0.0
+ * @var string
  */
-add_action(
-	'wp_ulike_after_process',
-	function( $id, $key, $user_id, $status ) {
+const EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION = '1.1.1';
 
-		if ( '_liked' === $key && 'like' === $status ) {
+require_once __DIR__ . '/src/Plugin.php';
+require_once __DIR__ . '/src/Settings.php';
 
-			$author_id    = get_post_field( 'post_author', $id );
-			$author_email = get_the_author_meta( 'user_email', $author_id );
+/**
+ * Return the main instance of Plugin Class.
+ *
+ * @since  1.0.0
+ *
+ * @return Plugin.
+ */
+function email_notifications_for_wp_ulike() {
+	$instance = \EmailNotificationsForWPULike\Plugin::get_instance();
+	$instance->init();
 
-			$title    = get_the_title( absint( $id ) );
-			$message  = 'Oh hi, there\'s a new LIKE on your post - <i>' . $title . '</i>';
-			$message .= '<br><br>Total number of likes: ' . wp_ulike_get_post_likes( $id ) . '</i>';
-			$message .= '<br><br>Post Link: ' . get_permalink( $id );
+	return $instance;
+}
 
-		} elseif ( '_commentliked' === $key && 'like' === $status ) {
-
-			$comment         = get_comment( absint( $id ) );
-			$comment_content = wpautop( get_comment_text( $id ), true );
-			$author_email    = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
-
-			$message  = 'Oh hi, there\'s a new LIKE on your comment: <br><br><i> ' . $comment_content . '</i>';
-			$message .= '<br><br>Total number of likes: ' . wp_ulike_get_comment_likes( $id ) . '</i>';
-			$message .= '<br><br>Post Link: ' . get_permalink( $comment->comment_post_ID );
-
-		} else {
-			return;
-		}
-
-		if ( $author_email && is_email( $author_email ) ) {
-
-			$header = array( 'Content-Type: text/html; charset=UTF-8' );
-			wp_mail( $author_email, 'You got a like! ❤️', $message, $header );
-		}
-	},
-	10,
-	4
-);
+email_notifications_for_wp_ulike();
