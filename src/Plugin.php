@@ -148,9 +148,10 @@ final class Plugin {
 	public function do_not_send( $context, $id, $author_email ) {
 
 		$settings       = get_option( 'wp_ulike_settings' );
-		$email_settings = $settings[ $context . 's_group' ];
 
-		if ( empty( $email_settings[ $context . '_like_email_enable' ] ) ) {
+		$email_settings = isset( $settings[ $context . 's_group' ] ) ? $settings[ $context . 's_group' ] : array();
+
+		if ( isset( $email_settings[ $context . '_like_email_enable' ] ) && empty( $email_settings[ $context . '_like_email_enable' ] ) ) {
 			return true;
 		}
 
