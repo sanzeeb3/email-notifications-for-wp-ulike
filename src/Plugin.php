@@ -23,7 +23,7 @@ final class Plugin {
 	/**
 	 * Return an instance of this class.
 	 *
-     * @since 1.1.2
+	 * @since 1.1.2
 	 *
 	 * @return object A single instance of this class.
 	 */
@@ -50,14 +50,14 @@ final class Plugin {
 
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		
+
 		add_action( 'wp_ulike_after_process', array( $this, 'process_email_send' ), 10, 4 );
 	}
 
 	/**
 	 * Load Localisation files.
 	 *
-     * @since 1.1.2
+	 * @since 1.1.2
 	 *
 	 * Note: the first-loaded translation file overrides any following ones if the same translation is present.
 	 *
@@ -76,11 +76,11 @@ final class Plugin {
 	 * Process email sending.
 	 *
 	 * @since 1.1.2
-	 * 
+	 *
 	 * @return bool|void true when the email is sent.
 	 */
 	public function process_email_send( $id, $key, $user_id, $status ) {
-		
+
 		if ( '_liked' === $key && 'like' === $status ) {
 
 			$author_id    = get_post_field( 'post_author', $id );
