@@ -52,6 +52,7 @@ final class Plugin {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		add_action( 'wp_ulike_after_process', array( $this, 'process_email_send' ), 10, 4 );
+		add_filter( 'email_notifications_for_wp_ulike_email_message', array( $this, 'process_smart_tags' ), 10, 3 );
 	}
 
 	/**
@@ -75,40 +76,119 @@ final class Plugin {
 	/**
 	 * Process email sending.
 	 *
+	 * @param int ID post or comment ID
+	 * @param string post liked or comment liked
+	 * @param int User ID.
+	 * @param status like or dislike
+	 *
 	 * @since 1.1.2
 	 *
 	 * @return bool|void true when the email is sent.
 	 */
 	public function process_email_send( $id, $key, $user_id, $status ) {
 
+		$settings = get_option( 'wp_ulike_settings' );
+
 		if ( '_liked' === $key && 'like' === $status ) {
 
-			$author_id    = get_post_field( 'post_author', $id );
-			$author_email = get_the_author_meta( 'user_email', $author_id );
+			$email_settings = $settings['posts_group'];
+			$author_id      = get_post_field( 'post_author', $id );
+			$author_email   = get_the_author_meta( 'user_email', $author_id );
 
-			$title    = get_the_title( absint( $id ) );
-			$message  = 'Oh hi, there\'s a new LIKE on your post - <i>' . $title . '</i>';
-			$message .= '<br><br>Total number of likes: ' . wp_ulike_get_post_likes( $id ) . '</i>';
-			$message .= '<br><br>Post Link: ' . get_permalink( $id );
+			$subject = ! empty( $email_settings['post_like_email_suject'] ) ? $email_settings['post_like_email_suject'] : esc_html__( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' );
 
+			$message = ! empty( $email_settings['post_like_email_message'] ) ? $email_settings['post_like_email_message'] : Settings::get_default_post_email_message();
+			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $id, '' );
+
+			$do_not_send = $this->do_not_send( 'post', $id, $author_email );
+
+			if ( $do_not_send ) {
+				return;
+			}
 		} elseif ( '_commentliked' === $key && 'like' === $status ) {
 
-			$comment         = get_comment( absint( $id ) );
-			$comment_content = wpautop( get_comment_text( $id ), true );
-			$author_email    = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
+			$email_settings = $settings['comments_group'];
+			$comment        = get_comment( absint( $id ) );
+			$author_email   = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
+			$subject        = ! empty( $email_settings['comment_like_email_suject'] ) ? $email_settings['comment_like_email_suject'] : esc_html__( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' );
 
-			$message  = 'Oh hi, there\'s a new LIKE on your comment: <br><br><i> ' . $comment_content . '</i>';
-			$message .= '<br><br>Total number of likes: ' . wp_ulike_get_comment_likes( $id ) . '</i>';
-			$message .= '<br><br>Post Link: ' . get_permalink( $comment->comment_post_ID );
+			$message = ! empty( $email_settings['comment_like_email_message'] ) ? $email_settings['comment_like_email_message'] : Settings::get_default_post_email_message();
+			$post_id = $comment->comment_post_ID;
+			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $id );
 
+			$do_not_send = $this->do_not_send( 'comment', $id, $author_email );
+
+			if ( $do_not_send ) {
+				return;
+			}
 		} else {
 			return;
 		}
 
+		// Now send.
 		if ( $author_email && is_email( $author_email ) ) {
 
 			$header = array( 'Content-Type: text/html; charset=UTF-8' );
-			wp_mail( $author_email, 'You got a like! ❤️', $message, $header );
+			wp_mail( $author_email, $subject, $message, $header );
 		}
+	}
+
+	/**
+	 * Do not send email if the notification is disabled, or excluded from the settings.
+	 *
+	 * @param string $context post or comment.
+	 * @param int    $id      Post ID or comment ID.
+	 * @param string $author_email Author Email.
+	 *
+	 * @since 1.1.2
+	 *
+	 * @return bool
+	 */
+	public function do_not_send( $context, $id, $author_email ) {
+
+		$settings       = get_option( 'wp_ulike_settings' );
+		$email_settings = $settings[ $context . 's_group' ];
+
+		if ( empty( $email_settings[ $context . '_like_email_enable' ] ) ) {
+			return true;
+		}
+
+		if ( ! empty( $email_settings[ $context . '_like_email_do_not_send' ] ) ) {
+			$do_not_send = explode( ',', trim( $email_settings[ $context . '_like_email_do_not_send' ] ) );
+
+			foreach ( $do_not_send as $exclude ) {
+				if ( $exclude == $id || $exclude == get_permalink( $id ) || $exclude == $author_email ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Process smart tags.
+	 *
+	 * @param  string $message      An email message with smart tag.
+	 * @param  int    $post_id      A post ID.
+	 * @param  int    $comment_id   A comment ID.
+	 *
+	 * @since 1.1.2
+	 *
+	 * @return string Final email message.
+	 */
+	public function process_smart_tags( $message, $post_id, $comment_id ) {
+
+		$message = str_replace( '{post_title}', get_the_title( $post_id ), $message );
+		$message = str_replace( '{total_post_likes}', wp_ulike_get_post_likes( $post_id ), $message );
+		$message = str_replace( '{post_link}', get_permalink( $post_id ), $message );
+
+		if ( ! empty( $comment_id ) ) {
+
+			$message = str_replace( '{total_comment_likes}', wp_ulike_get_comment_likes( $comment_id ), $message );
+			$message = str_replace( '{comment}', '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), $message );
+		}
+
+		return $message;
 	}
 }

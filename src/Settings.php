@@ -80,7 +80,7 @@ class Settings {
 					'id'      => 'post_like_email_suject',
 					'type'    => 'text',
 					'title'   => esc_html__( 'Email Subject For post LIKES', 'email-notifications-for-wp-ulike' ),
-					'default' => __( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' ),
+					'default' => esc_html__( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' ),
 					'desc'    => esc_html__( 'Email subject to the email sent when the post gets a LIKE.', 'email-notifications-for-wp-ulike' ),
 				),
 
@@ -88,16 +88,16 @@ class Settings {
 					'id'      => 'post_like_email_message',
 					'type'    => 'textarea',
 					'title'   => esc_html__( 'Email Message for post LIKES', 'email-notifications-for-wp-ulike' ),
-					'default' => __( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' ),
+					'default' => $this->get_default_post_email_message(),
 					'desc'    => esc_html__( 'Email message when the post gets a LIKE.', 'email-notifications-for-wp-ulike' ),
 				),
 
 				array(
-					'id'      => 'post_like_email_exclude',
+					'id'      => 'post_like_email_do_not_send',
 					'type'    => 'textarea',
 					'title'   => esc_html__( 'Do not send email to specific author or post', 'email-notifications-for-wp-ulike' ),
 					'default' => '',
-					'desc'    => esc_html__( 'Add author email, post ID or post URL to exclude separated by comma.', 'email-notifications-for-wp-ulike' ),
+					'desc'    => esc_html__( 'Add author email, post ID or post URL to not send email to, separated by comma.', 'email-notifications-for-wp-ulike' ),
 				),
 			)
 		);
@@ -136,18 +136,54 @@ class Settings {
 					'id'      => 'comment_like_email_message',
 					'type'    => 'textarea',
 					'title'   => esc_html__( 'Email Message for comment LIKES', 'email-notifications-for-wp-ulike' ),
-					'default' => __( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' ),
+					'default' => $this->get_default_comment_email_message(),
 					'desc'    => esc_html__( 'Email message when the comment gets a LIKE.', 'email-notifications-for-wp-ulike' ),
 				),
 
 				array(
-					'id'      => 'comment_like_email_exclude',
+					'id'      => 'comment_like_email_do_not_send',
 					'type'    => 'textarea',
 					'title'   => esc_html__( 'Do not send email to specific author or comment', 'email-notifications-for-wp-ulike' ),
 					'default' => '',
-					'desc'    => esc_html__( 'Add author email or comment ID to exclude separated by comma.', 'email-notifications-for-wp-ulike' ),
+					'desc'    => esc_html__( 'Add author email or comment ID to not send email to, separated by comma.', 'email-notifications-for-wp-ulike' ),
 				),
 			)
 		);
+	}
+
+	/**
+	 * Default email message for posts.
+	 *
+	 * @since 1.1.2
+	 *
+	 * @return string
+	 */
+	public static function get_default_post_email_message() {
+
+		return 'Oh hi, there\'s a new LIKE on your post - "{post_title}"
+
+Total number of likes: {total_post_likes}
+
+Post Link: {post_link}';
+	}
+
+	/**
+	 * Default email message for posts.
+	 *
+	 * @since 1.1.2
+	 *
+	 * @return string
+	 */
+	public static function get_default_comment_email_message() {
+
+		return 'Oh hi, there\'s a new LIKE on your comment:
+
+
+{comment}
+
+
+Total number of likes: {total_comment_likes}
+
+Post Link: {post_link}';
 	}
 }
