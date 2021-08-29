@@ -2,7 +2,8 @@
 
 namespace EmailNotificationsForWPULike;
 
-defined( 'ABSPATH' ) || exit;   // Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+// Exit if accessed directly.
 
 /**
  * Plugin Class.
@@ -76,16 +77,16 @@ final class Plugin {
 	/**
 	 * Process email sending.
 	 *
-	 * @param int ID post or comment ID
-	 * @param string post liked or comment liked
-	 * @param int User ID.
-	 * @param status like or dislike
+	 * @param int    $id post or comment ID.
+	 * @param string $key liked or comment liked.
+	 * @param int    $user_id User ID.
+	 * @param string $status like or dislike.
 	 *
 	 * @since 1.1.2
 	 *
 	 * @return bool|void true when the email is sent.
 	 */
-	public function process_email_send( $id, $key, $user_id, $status ) {
+	public function process_email_send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$settings = get_option( 'wp_ulike_settings' );
 
@@ -123,7 +124,7 @@ final class Plugin {
 			}
 		} else {
 			return;
-		}
+		}//end if
 
 		// Now send.
 		if ( $author_email && is_email( $author_email ) ) {
@@ -157,7 +158,7 @@ final class Plugin {
 			$do_not_send = explode( ',', trim( $email_settings[ $context . '_like_email_do_not_send' ] ) );
 
 			foreach ( $do_not_send as $exclude ) {
-				if ( $exclude == $id || $exclude == get_permalink( $id ) || $exclude == $author_email ) {
+				if ( $exclude == $id || get_permalink( $id ) == $exclude || $exclude == $author_email ) { //phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 					return true;
 				}
 			}

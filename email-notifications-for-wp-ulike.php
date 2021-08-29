@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Email Notifications For WP ULike
  * Description: Sends email notification whenever you got a like on a post or comment.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Sanjeev Aryal
  * Author URI: http://www.sanjeebaryal.com.np
  * Text Domain: email-notifications-for-wp-ulike
@@ -24,7 +24,7 @@ define( 'EMAIL_NOTIFICATIONS_FOR_WP_ULIKE', __FILE__ );
  *
  * @var string
  */
-const EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION = '1.1.1';
+const EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION = '1.1.2';
 
 require_once __DIR__ . '/src/Plugin.php';
 require_once __DIR__ . '/src/Settings.php';

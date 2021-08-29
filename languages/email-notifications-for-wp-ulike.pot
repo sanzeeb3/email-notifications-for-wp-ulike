@@ -1,0 +1,113 @@
+# Copyright (C) 2021 Sanjeev Aryal
+# This file is distributed under the same license as the Email Notifications For WP ULike package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Email Notifications For WP ULike 1.1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-29 07:57:14+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: src/Plugin.php:99 src/Plugin.php:114 src/Settings.php:83
+#: src/Settings.php:131
+msgid "You got a like! ❤️"
+msgstr ""
+
+#: src/Settings.php:35
+msgid "Email Notifications"
+msgstr ""
+
+#: src/Settings.php:43
+msgid "Posts"
+msgstr ""
+
+#: src/Settings.php:51
+msgid "Comments"
+msgstr ""
+
+#: src/Settings.php:74
+msgid "Enable Notifications on posts LIKES"
+msgstr ""
+
+#: src/Settings.php:76
+msgid "Email Notification sent to post author when the post gets a LIKE."
+msgstr ""
+
+#: src/Settings.php:82
+msgid "Email Subject For post LIKES"
+msgstr ""
+
+#: src/Settings.php:84
+msgid "Email subject to the email sent when the post gets a LIKE."
+msgstr ""
+
+#: src/Settings.php:90
+msgid "Email Message for post LIKES"
+msgstr ""
+
+#: src/Settings.php:92
+msgid "Email message when the post gets a LIKE."
+msgstr ""
+
+#: src/Settings.php:98
+msgid "Do not send email to specific author or post"
+msgstr ""
+
+#: src/Settings.php:100
+msgid ""
+"Add author email, post ID or post URL to not send email to, separated by "
+"comma."
+msgstr ""
+
+#: src/Settings.php:122
+msgid "Enable Notifications on comments LIKES"
+msgstr ""
+
+#: src/Settings.php:124
+msgid "Email Notification sent to comment author when the comment gets a LIKE."
+msgstr ""
+
+#: src/Settings.php:130
+msgid "Email Subject For comment LIKES"
+msgstr ""
+
+#: src/Settings.php:132
+msgid "Email subject to the email sent when the comment gets a LIKE."
+msgstr ""
+
+#: src/Settings.php:138
+msgid "Email Message for comment LIKES"
+msgstr ""
+
+#: src/Settings.php:140
+msgid "Email message when the comment gets a LIKE."
+msgstr ""
+
+#: src/Settings.php:146
+msgid "Do not send email to specific author or comment"
+msgstr ""
+
+#: src/Settings.php:148
+msgid "Add author email or comment ID to not send email to, separated by comma."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Email Notifications For WP ULike"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Sends email notification whenever you got a like on a post or comment."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Sanjeev Aryal"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.sanjeebaryal.com.np"
+msgstr ""

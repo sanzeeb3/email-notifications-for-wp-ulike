@@ -4,7 +4,7 @@ Tags: wp ulike, notification
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,17 +14,26 @@ Sends email notification whenever you got a like on a post or comment.
 
 Sends email notification to you (post authors) whenever you got a like on your post or comment. 👍 >> 📧
 
-Install and activate the plugin -- that's it. Absolutely no configuration required.
-
 [WP ULike](https://wordpress.org/plugins/wp-ulike/) plugin is required.
 
-Follow the [documentation](https://sanjeebaryal.com.np/get-an-email-notification-when-your-post-or-comment-gets-a-like/).
+Emails are customizable from WP ULike settings.
+
+Follow the [documentation](https://sanjeebaryal.com.np/get-an-email-notification-when-your-post-or-comment-gets-a-like/) for more information.
+
+Send reports to [the GitHub Repository](https://github.com/sanzeeb3/email-notifications-for-wp-ulike).
+
+== Screenshots ==
+
+1. Settings.
 
 == Frequently Asked Questions ==
 
 No questions yet.
 
 == Changelog ==
+
+= 1.1.2 - 08/29/2021 =
+* Feature - Settings page to customize emails.
 
 = 1.1.1 - 08/27/2021 =
 * Fix - Line breaks in comments.
