@@ -1,6 +1,6 @@
 === Email Notifications For WP ULike ===
 Contributors: sanzeeb3
-Tags: wp ulike, notification
+Tags: wpulike, emails
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 7.0
