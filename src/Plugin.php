@@ -49,6 +49,10 @@ final class Plugin {
 		$settings = new Settings();
 		$settings->init();
 
+		// Load Unsubscribe.
+		$unsubscribe = new Unsubscribe();
+		$unsubscribe->init();
+
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
