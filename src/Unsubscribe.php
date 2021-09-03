@@ -18,7 +18,7 @@ class Unsubscribe {
 	 */
 	public function init() {
 		add_filter( 'email_notifications_for_wp_ulike_email_message', array( $this, 'create_unsubscribe_link' ), 10, 3 );
-		add_action( 'init', 'process_unsubscribe' );
+		add_action( 'init', array( $this, 'process_unsubscribe' ) );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Unsubscribe {
 	}
 
 	/**
-	 * Unsubscribe the email.
+	 * Add email coming from the unsubscribe link to the Do Not Send option.
 	 *
 	 * @return void.
 	 */
