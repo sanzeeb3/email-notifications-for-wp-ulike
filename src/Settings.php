@@ -60,7 +60,7 @@ class Settings {
 							'fields' => array(
 								array(
 									'id'      => 'review_text',
-									'type'    => 'submessage',
+									'type'    => 'content',
 									'content' => sprintf(
 										wp_kses( /* translators: %1$s - WP.org link; %2$s - same WP.org link. */
 											__( 'Please rate <strong>Email Notifications For WP ULike</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you!', 'email-notifications-for-wp-ulike' ),
