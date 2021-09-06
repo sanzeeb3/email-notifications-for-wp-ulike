@@ -32,6 +32,10 @@ No questions yet.
 
 == Changelog ==
 
+= 1.2.0 - xx/xx/2021 =
+* Feature - Unsubscription smart tag {unsubscribe}
+* Add - Review text at the footer
+
 = 1.1.3 - 08/29/2021 =
 * Fix - Work with the default settings.
 
