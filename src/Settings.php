@@ -52,6 +52,33 @@ class Settings {
 							'fields'   => $this->get_comments_options(),
 							'sanitize' => 'wp_ulike_sanitize_multiple_select',
 						),
+
+						array(
+							'id'     => 'motivation',
+							'type'   => 'fieldset',
+							'title'  => __( 'Boost my motivation?', 'email-notifications-for-wp-ulike' ),
+							'fields' => array(
+								array(
+									'id'      => 'review_text',
+									'type'    => 'submessage',
+									'content' => sprintf(
+										wp_kses( /* translators: %1$s - WP.org link; %2$s - same WP.org link. */
+											__( 'Please rate <strong>Email Notifications For WP ULike</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you!', 'email-notifications-for-wp-ulike' ),
+											array(
+												'strong' => true,
+												'a'      => array(
+													'href' => true,
+													'target' => true,
+													'rel'  => true,
+												),
+											)
+										),
+										'https://wordpress.org/support/plugin/email-notifications-for-wp-ulike/reviews/#new-post',
+										'https://wordpress.org/support/plugin/email-notifications-for-wp-ulike/reviews/#new-post'
+									),
+								),
+							),
+						),
 					),
 			)
 		);
