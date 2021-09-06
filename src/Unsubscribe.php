@@ -28,6 +28,8 @@ class Unsubscribe {
 	 * @param  int    $post_id      A post ID.
 	 * @param  int    $comment_id   A comment ID.
 	 *
+	 * @since 1.2.0
+	 *
 	 * @return string.
 	 */
 	public function create_unsubscribe_link( $message, $post_id, $comment_id ) {
@@ -49,31 +51,43 @@ class Unsubscribe {
 	}
 
 	/**
-	 * Add email coming from the unsubscribe link to the Do Not Send option.
+	 * Add email coming from the unsubscribe link to the separate option.
+	 *
+	 * @since 1.2.0
 	 *
 	 * @return void.
 	 */
 	public function process_unsubscribe() {
 
-		wp_verify_nonce( 'unsubscribe_wp_ulike_emails' );
+		$nonce = ! empty( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
 
-		if ( isset( $_GET['unsubscribe_wp_ulike_emails'] ) ) {
-			$type = ! empty( $_GET['type'] ) ? sanitize_text_field( wp_unslash( $_GET['type'] ) ) : 'post';
-			$id   = ! empty( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+		$verify = wp_verify_nonce( $nonce, 'unsubscribe_wp_ulike_emails' );
+
+		if ( ! $verify ) {
+			// Nonce fail.
+			return;
 		}
+
+		if ( empty( $_GET['unsubscribe_wp_ulike_emails'] ) ) {
+			// Validate the $_GET.
+			return;
+		}
+
+		$type = ! empty( $_GET['type'] ) ? sanitize_text_field( wp_unslash( $_GET['type'] ) ) : 'post';
+		$id   = ! empty( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 
 		if ( 'comment' === $type ) {
-			$comment        = get_comment( $id );
-			$author_email   = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
-		} else{			
+			$comment      = get_comment( $id );
+			$author_email = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
+		} else {
 
-			$author_id      = get_post_field( 'post_author', $id );
-			$author_email   = get_the_author_meta( 'user_email', $author_id );
+			$author_id    = get_post_field( 'post_author', $id );
+			$author_email = get_the_author_meta( 'user_email', $author_id );
 		}
 
-		$settings = get_option( 'wp_ulike_settings' );
+		$unsubscription_list   = get_option( 'wp_ulike_unsubscription_list', array() );
+		$unsubscription_list[] = $author_email;
 
-		$post_group    = $settings['posts_group'];
-		$comment_group = $settings['comments_group'];
+		update_option( 'wp_ulike_unsubscription_list', $unsubscription_list );
 	}
 }

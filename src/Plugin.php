@@ -151,7 +151,7 @@ final class Plugin {
 	 */
 	public function do_not_send( $context, $id, $author_email ) {
 
-		$settings       = get_option( 'wp_ulike_settings' );
+		$settings = get_option( 'wp_ulike_settings' );
 
 		$email_settings = isset( $settings[ $context . 's_group' ] ) ? $settings[ $context . 's_group' ] : array();
 
@@ -160,9 +160,13 @@ final class Plugin {
 		}
 
 		if ( ! empty( $email_settings[ $context . '_like_email_do_not_send' ] ) ) {
-			$do_not_send = explode( ',', trim( $email_settings[ $context . '_like_email_do_not_send' ] ) );
 
-			foreach ( $do_not_send as $exclude ) {
+			$do_not_send         = explode( ',', trim( $email_settings[ $context . '_like_email_do_not_send' ] ) );
+			$unsubscription_list = get_option( 'wp_ulike_unsubscription_list', array() );
+
+			$excludes = array_merge( $do_not_send, $unsubscription_list );
+
+			foreach ( $excludes as $exclude ) {
 				if ( $exclude == $id || get_permalink( $id ) == $exclude || $exclude == $author_email ) { //phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 					return true;
 				}
