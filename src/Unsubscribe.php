@@ -22,7 +22,7 @@ class Unsubscribe {
 	}
 
 	/**
-	 * Process the unsubscribe link.
+	 * Create the unsubscribe link.
 	 *
 	 * @param  string $message      An email message with smart tag.
 	 * @param  int    $post_id      A post ID.
