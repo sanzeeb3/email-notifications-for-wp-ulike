@@ -53,6 +53,8 @@ class Settings {
 							'sanitize' => 'wp_ulike_sanitize_multiple_select',
 						),
 
+						Summary::get_summary_section(),
+
 						array(
 							'id'     => 'motivation',
 							'type'   => 'fieldset',

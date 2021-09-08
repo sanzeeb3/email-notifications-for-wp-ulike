@@ -139,7 +139,7 @@ final class Plugin {
 	}
 
 	/**
-	 * Do not send email if the notification is disabled, or excluded from the settings.
+	 * Do not send email if the notification is disabled, excluded from the settings, or is unsubscribed.
 	 *
 	 * @param string $context post or comment.
 	 * @param int    $id      Post ID or comment ID.
