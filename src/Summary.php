@@ -19,31 +19,19 @@ defined( 'ABSPATH' ) || exit;
 class Summary {
 
 	/**
-	 * Initialize.
-	 *
-	 * @since 1.2.0
-	 */
-	public function init() {
-
-		if ( ! class_exists( 'ActionScheduler' ) ) {
-			return;
-		}
-	}
-
-	/**
 	 * Get weekly summary email section.
 	 *
 	 * @since 1.2.0
 	 *  
 	 * @return array
 	 */
-	public static function get_summary_section() {
+	public static function get_weekly_summary_section() {
+
 		return array(
 			'id'     => 'weekly-summary',
 			'type'   => 'fieldset',
 			'title'  => __( 'Weekly Summary Email', 'email-notifications-for-wp-ulike' ),
 			'fields' => array(
-
 				array(
 					'id'      => 'weekly_summary_email_enable',
 					'type'    => 'switcher',
@@ -51,7 +39,6 @@ class Summary {
 					'default' => true,
 					'desc'    => esc_html__( 'A summary of how your posts performed in terms of LIKES, past week. The email is by default sent to site administrator.', 'email-notifications-for-wp-ulike' ),
 				),
-
 			),
 		);
 	}
