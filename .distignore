@@ -42,5 +42,5 @@ yarn.lock
 .wordpress-org
 .github
 LICENSE.md
-vendor
+vendor/composer/installers/**
 dist
