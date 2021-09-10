@@ -1,6 +1,6 @@
 === Email Notifications For WP ULike ===
 Contributors: sanzeeb3
-Tags: wpulike, emails
+Tags: wp ulike, wp-ulike, emails
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 7.0
@@ -12,7 +12,10 @@ Sends email notification whenever you got a like on a post or comment.
 
 == Description ==
 
-Sends email notification to you (post authors) whenever you got a like on your post or comment. 👍 >> 📧
+Sends an email notification:
+
+* To the writers (post authors) whenever they got a like on their post or comment. 👍 >> 📧
+* To the administrator regarding how your contents are performing in terms of LIKES - sent weekly.
 
 [WP ULike](https://wordpress.org/plugins/wp-ulike/) plugin is required.
 
@@ -34,6 +37,7 @@ No questions yet.
 
 = 1.2.0 - xx/xx/2021 =
 * Feature - Unsubscription smart tag {unsubscribe}
+* Feature - Weekly summary email
 * Add - Review text at the footer
 
 = 1.1.3 - 08/29/2021 =
