@@ -26,7 +26,7 @@ class Summary {
 	public function init() {
 
 		add_action( 'admin_init', array( $this, 'schedule_summary_email' ) );
-		add_action( 'email_notifications_for_wp_ulike_weekly_summary_email', array( $this, 'initiate_email_sending' ) );
+		add_action( 'email_notifications_for_wp_ulike_weekly_summary_email', array( $this, 'send' ) );
 	}
 
 	/**
@@ -79,13 +79,17 @@ class Summary {
 	 *
 	 * @return void.
 	 */
-	public function initiate_email_sending() {
+	public function send() {
 
 		$settings = get_option( 'wp_ulike_settings' );
 
-		$enabled = $settings['summary_group']['weekly_summary_email_enable'];
+		if ( empty( $settings['summary_group']['weekly_summary_email_enable'] ) ) {
+			return;
+		}
 
-		if ( ! $enabled ) {
+		$top_posts = wp_ulike_get_most_liked_posts( 5, array( 'post' ), 'post', 'week', 'like' );
+
+		if ( empty( $top_posts ) ) {
 			return;
 		}
 
@@ -93,7 +97,7 @@ class Summary {
 		$subject = apply_filters( 'email_notifications_for_wp_ulike_weekly_summary_email_subject', esc_html__( 'Weekly Likes ❤️', 'email-notifications-for-wp-ulike' ) );
 		$send_to = apply_filters( 'email_notifications_for_wp_ulike_weekly_summary_email_receipent', get_option( 'admin_email' ) );
 
-		$message = wpautop( $this->get_weekly_summary_email_message() );
+		$message = wpautop( $this->get_weekly_summary_email_message( $top_posts ) );
 
 		ob_start();
 
@@ -117,22 +121,24 @@ class Summary {
 	/**
 	 * Weekly summary email message content.
 	 *
+	 * @param array $top_posts Top posts in terms of likes.
+	 *
 	 * @since 1.2.0
 	 *
 	 * @return string A email message content.
 	 */
-	public function get_weekly_summary_email_message() {
+	public function get_weekly_summary_email_message( $top_posts ) {
 
-		$top_posts = wp_ulike_get_most_liked_posts( 5, array( 'post' ), 'post', 'week', 'like' );
-		$combine   = '';
+		$combine = '';
 
 		foreach ( $top_posts as $post ) {
-			$combine .= '<li><a target="_blank" rel="noopener noreferrer" href=" ' . get_permalink( $post->ID ) . ' ">' . $post->post_title . '</a> - <strong> ' . wp_ulike_get_post_likes( $post->ID ) . '</strong> likes.' . '</li>';
+			$combine .= '<li><a target="_blank" rel="noopener noreferrer" href=" ' . get_permalink( $post->ID ) . ' ">' . $post->post_title . '</a> - <strong> ' . wp_ulike_get_post_likes( $post->ID ) . '</strong> likes.' . '</li>'; //phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
 		}
 
 		return sprintf(
 			wp_kses(
-				__(  /* translators: %1$s - top liked posts */
+					/* translators: %1$s - top liked posts */
+				__(
 					'<b>Hi there,</b>
 
 Let\'s see how your contents performed in the past week in terms of LIKES.
