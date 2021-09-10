@@ -25,10 +25,6 @@ class Summary {
 	 */
 	public function init() {
 
-		if ( ! class_exists( 'ActionScheduler' ) ) {
-			return;
-		}
-
 		add_action( 'admin_init', array( $this, 'schedule_summary_email' ) );
 		add_action( 'email_notifications_for_wp_ulike_weekly_summary_email', array( $this, 'initiate_email_sending' ) );
 	}
@@ -66,6 +62,10 @@ class Summary {
 	 * @return integer|void The actions'd ID or void.
 	 */
 	public function schedule_summary_email() {
+
+		if ( ! function_exists( 'as_next_scheduled_action' ) ) {
+			return;
+		}
 
 		if ( false === as_next_scheduled_action( 'email_notifications_for_wp_ulike_weekly_summary_email' ) ) {
 			as_schedule_recurring_action( strtotime( '+ 7 days' ), WEEK_IN_SECONDS, 'email_notifications_for_wp_ulike_weekly_summary_email', array(), 'email_notifications_for_wp_ulike' );
