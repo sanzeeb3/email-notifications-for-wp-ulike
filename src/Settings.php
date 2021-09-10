@@ -54,6 +54,7 @@ class Settings {
 						),
 
 						Summary::get_weekly_summary_section(),
+						Milestones::get_milestones_section(),
 
 						array(
 							'id'     => 'motivation',

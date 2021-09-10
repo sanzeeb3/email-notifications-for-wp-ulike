@@ -12,10 +12,12 @@ Sends email notification whenever you got a like on a post or comment.
 
 == Description ==
 
-Sends an email notification:
+**Sends an email notification:**
 
 * To the writers (post authors) whenever they got a like on their post or comment. 👍 >> 📧
 * To the administrator regarding how your contents are performing in terms of LIKES - sent weekly.
+
+**Making the Most Advanced WordPress Marketing Toolkit, even more advanced.**
 
 [WP ULike](https://wordpress.org/plugins/wp-ulike/) plugin is required.
 

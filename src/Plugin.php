@@ -45,7 +45,7 @@ final class Plugin {
 	 */
 	public function init() {
 
-		$classes = array( 'Settings', 'Unsubscribe', 'Summary' );
+		$classes = [ 'Settings', 'Unsubscribe', 'Summary', 'Milestones' ];
 
 		foreach ( $classes as $class ) {
 			if ( \class_exists( __NAMESPACE__ . '\\' . $class ) ) {
