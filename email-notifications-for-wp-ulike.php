@@ -26,13 +26,7 @@ define( 'EMAIL_NOTIFICATIONS_FOR_WP_ULIKE', __FILE__ );
  */
 const EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION = '1.1.3';
 
-/**
- * @todo - Use composer autoload.
- */
-require_once __DIR__ . '/src/Plugin.php';
-require_once __DIR__ . '/src/Settings.php';
-require_once __DIR__ . '/src/Unsubscribe.php';
-require_once __DIR__ . '/src/Summary.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * Return the main instance of Plugin Class.

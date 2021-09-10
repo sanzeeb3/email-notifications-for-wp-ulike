@@ -1,0 +1,27 @@
+{
+  "name": "sanzeeb3/email-notifications-for-wp-ulike",
+  "description": "Sends email notification whenever you got a like on a post or comment.",
+  "homepage": "https://github.com/sanzeeb3/email-notifications-for-wp-ulike",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0-or-later",
+  "require": {
+    "php": ">=5.6",
+    "composer/installers": "1.7.0"
+  },
+   "autoload": {
+    "psr-4": {
+        "EmailNotificationsForWPULike\\": "src/"
+    }
+  },
+  "scripts": {
+    "phpcs": [
+      "phpcs -s -p"
+    ],
+    "phpcs-pre-commit": [
+      "phpcs -s -p -n"
+    ],
+    "phpcbf": [
+      "phpcbf -p"
+    ]
+  }
+}
