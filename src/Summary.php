@@ -24,6 +24,11 @@ class Summary {
 	 * @since 1.2.0
 	 */
 	public function init() {
+
+		if ( ! class_exists( 'ActionScheduler' ) ) {
+			return;
+		}
+
 		add_action( 'admin_init', array( $this, 'schedule_summary_email' ) );
 		add_action( 'email_notifications_for_wp_ulike_weekly_summary_email', array( $this, 'initiate_email_sending' ) );
 	}
@@ -38,7 +43,7 @@ class Summary {
 	public static function get_weekly_summary_section() {
 
 		return array(
-			'id'     => 'weekly-summary',
+			'id'     => 'summary_group',
 			'type'   => 'fieldset',
 			'title'  => __( 'Weekly Summary Email', 'email-notifications-for-wp-ulike' ),
 			'fields' => array(
@@ -75,6 +80,82 @@ class Summary {
 	 * @return void.
 	 */
 	public function initiate_email_sending() {
+
+		$settings = get_option( 'wp_ulike_settings' );
+
+		$enabled = $settings['summary_group']['weekly_summary_email_enable'];
+
+		if ( ! $enabled ) {
+			return;
+		}
+
+		$header  = array( 'Content-Type: text/html; charset=UTF-8' );
+		$subject = apply_filters( 'email_notifications_for_wp_ulike_weekly_summary_email_subject', esc_html__( 'Weekly Likes ❤️', 'email-notifications-for-wp-ulike' ) );
+		$send_to = apply_filters( 'email_notifications_for_wp_ulike_weekly_summary_email_receipent', get_option( 'admin_email' ) );
+
+		$message = wpautop( $this->get_weekly_summary_email_message() );
+
+		ob_start();
+
+		// Allow themes to override the template.
+		$template = locate_template(
+			'email-notifications-for-wp-ulike/template.php'
+		);
+
+		// Themes's template should be given the priority.
+		if ( ! file_exists( $template ) ) {
+			$template = 'templates/template.php';
+		}
+
+		include $template;
+
+		$email = ob_get_clean();
+
+		$sent = wp_mail( $send_to, $subject, $email, $header );
+	}
+
+	/**
+	 * Weekly summary email message content.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return string A email message content.
+	 */
+	public function get_weekly_summary_email_message() {
+
+		$top_posts = wp_ulike_get_most_liked_posts( 5, array( 'post' ), 'post', 'week', 'like' );
+		$combine   = '';
+
+		foreach ( $top_posts as $post ) {
+			$combine .= '<li><a target="_blank" rel="noopener noreferrer" href=" ' . get_permalink( $post->ID ) . ' ">' . $post->post_title . '</a> - <strong> ' . wp_ulike_get_post_likes( $post->ID ) . '</strong> likes.' . '</li>';
+		}
+
+		return sprintf(
+			wp_kses(
+				__(  /* translators: %1$s - top liked posts */
+					'<b>Hi there,</b>
+
+Let\'s see how your contents performed in the past week in terms of LIKES.
+
+the Top 5 posts this past week:
+
+%1$s
+
+',
+					'email-notifications-for-wp-ulike'
+				),
+				array(
+					'strong' => array(),
+					'li'     => array(),
+					'a'      => array(
+						'href'   => true,
+						'target' => true,
+						'rel'    => true,
+					),
+				)
+			),
+			$combine
+		);
 
 	}
 }

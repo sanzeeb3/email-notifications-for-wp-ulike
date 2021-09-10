@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$backgound_color = apply_filters( 'email_notifications_for_wp_ulike_email_background_color', '' );
+$backgound_color = apply_filters( 'email_notifications_for_wp_ulike_email_background_color', '#f7f7f7' );
 $footer_text     = apply_filters( 'email_notifications_for_wp_ulike_email_footer_text', sprintf( __( 'Sent from <a href="%1$1s">%2$2s</a>', 'email-notifications-for-wp-ulike' ), get_bloginfo( 'url' ), get_bloginfo() ) );
 
 ?>

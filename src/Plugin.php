@@ -45,13 +45,15 @@ final class Plugin {
 	 */
 	public function init() {
 
-		// Load Settings.
-		$settings = new Settings();
-		$settings->init();
+		$classes = array( 'Settings', 'Unsubscribe', 'Summary' );
 
-		// Load Unsubscribe.
-		$unsubscribe = new Unsubscribe();
-		$unsubscribe->init();
+		foreach ( $classes as $class ) {
+			if ( \class_exists( __NAMESPACE__ . '\\' . $class ) ) {
+				$class = __NAMESPACE__ . '\\' . $class;
+				$obj   = new $class();
+				$obj->init();
+			}
+		}
 
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
