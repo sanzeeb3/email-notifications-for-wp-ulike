@@ -45,7 +45,7 @@ final class Plugin {
 	 */
 	public function init() {
 
-		$classes = [ 'Settings', 'Unsubscribe', 'Summary', 'Milestones' ];
+		$classes = array( 'Settings', 'Unsubscribe', 'Summary', 'Milestones' );
 
 		foreach ( $classes as $class ) {
 			if ( \class_exists( __NAMESPACE__ . '\\' . $class ) ) {
@@ -203,12 +203,12 @@ final class Plugin {
 
 		} else {
 			$message = str_replace( '{post/comment}', 'post', $message );
-		    $message = str_replace( '{title}', '<i>' . get_the_title( $post_id ) . '</i>', $message );
+			$message = str_replace( '{title}', '<i>' . get_the_title( $post_id ) . '</i>', $message );
 
 			$message = str_replace( '{milestone}', wp_ulike_get_post_likes( $post_id ), $message );
 		}
 
-		$message = str_replace( '{post_title}', get_the_title( $post_id ), $message );
+		$message = str_replace( '{post_title}', '<i>' . get_the_title( $post_id ) . '</i>', $message );
 		$message = str_replace( '{total_post_likes}', wp_ulike_get_post_likes( $post_id ), $message );
 		$message = str_replace( '{post_link}', get_permalink( $post_id ), $message );
 

@@ -23,13 +23,18 @@ class Milestones {
 	/**
 	 * Process sending milestone email.
 	 *
+	 * @param int    $id post or comment ID, actually id of the content being liked.
+	 * @param string $key post liked or comment liked.
+	 * @param int    $user_id User ID.
+	 * @param string $status like or dislike.
+	 *
 	 * @todo simplify this method. Merge with Plugin.php 's process_email_send method.
 	 *
 	 * @since 1.3.0
 	 *
 	 * @return bool.
 	 */
-	public function process_email_send( $id, $key, $user_id, $status ) {
+	public function process_email_send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$settings            = get_option( 'wp_ulike_settings' );
 		$milestones_settings = isset( $settings['milestones_group'] ) ? $settings['milestones_group'] : array();
@@ -39,7 +44,7 @@ class Milestones {
 		if ( '_liked' === $key && 'like' === $status ) {
 
 			// Do not send for milestones if disabled specific to post.
-			if ( isset( $milestones_settings['milestone_email_enable_posts'] ) && empty( $milestones_settings['milestone_email_enable_posts'] ) ) {
+			if ( isset( $milestones_settings['milestone_like_email_enable_for_posts'] ) && empty( $milestones_settings['milestone_like_email_enable_for_posts'] ) ) {
 				return;
 			}
 
@@ -52,7 +57,7 @@ class Milestones {
 		} elseif ( '_commentliked' === $key && 'like' === $status ) {
 
 			// Do not send for milestones if disabled specific to comment.
-			if ( isset( $milestones_settings['milestone_email_enable_comments'] ) && empty( $milestones_settings['milestone_email_enable_comments'] ) ) {
+			if ( isset( $milestones_settings['milestone_like_email_enable_for_comments'] ) && empty( $milestones_settings['milestone_like_email_enable_for_comments'] ) ) {
 				return;
 			}
 
@@ -74,12 +79,14 @@ class Milestones {
 		}
 
 		// Now send.
-		if ( $author_email && is_email( $author_email ) && in_array( $total_likes, $milestone ) ) {
+		if ( $author_email && is_email( $author_email ) && in_array(  $total_likes, $milestone ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 
 			$header  = array( 'Content-Type: text/html; charset=UTF-8' );
 			$subject = esc_html__( 'Congratulations! You reached a milestone! 🎉', 'email-notifications-for-wp-ulike' );
-			$message = wpautop( self::get_default_milestone_email_message() );
-			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', $message, $post_id, $comment_id );
+			$subject = ! empty( $milestones_settings['milestone_like_email_subject'] ) ? $milestones_settings['milestone_like_email_subject'] : $subject;
+			$message = self::get_default_milestone_email_message();
+			$message = ! empty( $milestones_settings['milestone_like_email_message'] ) ? $milestones_settings['milestone_like_email_message'] : $message;
+			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $comment_id );
 
 			wp_mail( $author_email, $subject, $message, $header );
 		}
@@ -100,14 +107,14 @@ class Milestones {
 			'title'  => __( 'Milestones Emails 🏆 <br><br> (posts and comments milestones).', 'email-notifications-for-wp-ulike' ),
 			'fields' => array(
 				array(
-					'id'      => 'milestone_email_enable_posts',
+					'id'      => 'milestone_like_email_enable_for_posts',
 					'type'    => 'switcher',
 					'title'   => esc_html__( 'Enable Milestone Emails For Posts', 'email-notifications-for-wp-ulike' ),
 					'default' => true,
 					'desc'    => esc_html__( 'An email sent to the author of the post when the post reaches the milestones.', 'email-notifications-for-wp-ulike' ),
 				),
 				array(
-					'id'      => 'milestone_email_enable_comments',
+					'id'      => 'milestone_like_email_enable_for_comments',
 					'type'    => 'switcher',
 					'title'   => esc_html__( 'Enable Milestone Emails For Comments', 'email-notifications-for-wp-ulike' ),
 					'default' => true,
@@ -122,7 +129,7 @@ class Milestones {
 				),
 
 				array(
-					'id'      => 'milestones_email_subject',
+					'id'      => 'milestone_like_email_subject',
 					'type'    => 'text',
 					'title'   => esc_html__( 'Email Subject For Milestone LIKES', 'email-notifications-for-wp-ulike' ),
 					'default' => esc_html__( 'Congratulations! You reached a milestone! 🎉', 'email-notifications-for-wp-ulike' ),
@@ -130,7 +137,7 @@ class Milestones {
 				),
 
 				array(
-					'id'      => 'milestones_email_message',
+					'id'      => 'milestone_like_email_message',
 					'type'    => 'textarea',
 					'title'   => esc_html__( 'Email Message for Milestone LIKES', 'email-notifications-for-wp-ulike' ),
 					'default' => self::get_default_milestone_email_message(),

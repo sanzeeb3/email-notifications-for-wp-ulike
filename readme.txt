@@ -16,6 +16,7 @@ Sends email notification whenever you got a like on a post or comment.
 
 * To the writers (post authors) whenever they got a like on their post or comment. 👍 >> 📧
 * To the administrator regarding how your contents are performing in terms of LIKES - sent weekly.
+* On milestones 🏆 - whenever your (post authors) contents reaches a milestones of 50, 100, or (you set the milestone) LIKES.
 
 **Making the Most Advanced WordPress Marketing Toolkit, even more advanced.**
 

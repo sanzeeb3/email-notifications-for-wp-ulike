@@ -190,7 +190,10 @@ class Settings {
 	 */
 	public static function get_default_post_email_message() {
 
-		return 'Oh hi, there\'s a new LIKE on your post - "{post_title}"
+		return 'Oh hi, there\'s a new LIKE on your post 
+
+{post_title}
+
 
 Total number of likes: {total_post_likes}
 
