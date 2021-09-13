@@ -107,7 +107,7 @@ final class Plugin {
 			$message = ! empty( $email_settings['post_like_email_message'] ) ? $email_settings['post_like_email_message'] : Settings::get_default_post_email_message();
 			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $id, '' );
 
-			$do_not_send = $this->do_not_send( 'post', $id, $author_email );
+			$do_not_send = self::do_not_send( 'post', $id, $author_email );
 
 			if ( $do_not_send ) {
 				return;
@@ -123,7 +123,7 @@ final class Plugin {
 			$post_id = $comment->comment_post_ID;
 			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $id );
 
-			$do_not_send = $this->do_not_send( 'comment', $id, $author_email );
+			$do_not_send = self::do_not_send( 'comment', $id, $author_email );
 
 			if ( $do_not_send ) {
 				return;
@@ -151,7 +151,7 @@ final class Plugin {
 	 *
 	 * @return bool
 	 */
-	public function do_not_send( $context, $id, $author_email ) {
+	public static function do_not_send( $context, $id, $author_email ) {
 
 		$settings = get_option( 'wp_ulike_settings' );
 
@@ -191,15 +191,26 @@ final class Plugin {
 	 */
 	public function process_smart_tags( $message, $post_id, $comment_id ) {
 
-		$message = str_replace( '{post_title}', get_the_title( $post_id ), $message );
-		$message = str_replace( '{total_post_likes}', wp_ulike_get_post_likes( $post_id ), $message );
-		$message = str_replace( '{post_link}', get_permalink( $post_id ), $message );
-
+		// It's the comment being liked.
 		if ( ! empty( $comment_id ) ) {
 
 			$message = str_replace( '{total_comment_likes}', wp_ulike_get_comment_likes( $comment_id ), $message );
 			$message = str_replace( '{comment}', '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), $message );
+			$message = str_replace( '{post/comment}', 'comment', $message );
+			$message = str_replace( '{title}', '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), $message );
+
+			$message = str_replace( '{milestone}', wp_ulike_get_comment_likes( $comment_id ), $message );
+
+		} else {
+			$message = str_replace( '{post/comment}', 'post', $message );
+		    $message = str_replace( '{title}', '<i>' . get_the_title( $post_id ) . '</i>', $message );
+
+			$message = str_replace( '{milestone}', wp_ulike_get_post_likes( $post_id ), $message );
 		}
+
+		$message = str_replace( '{post_title}', get_the_title( $post_id ), $message );
+		$message = str_replace( '{total_post_likes}', wp_ulike_get_post_likes( $post_id ), $message );
+		$message = str_replace( '{post_link}', get_permalink( $post_id ), $message );
 
 		return $message;
 	}
