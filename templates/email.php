@@ -2,7 +2,7 @@
 /**
  * The Email template.
  *
- * This template can be overridden by copying it to your-child-theme/email-notifications-for-wp-ulike/template.php.
+ * This template can be overridden by copying it to your-child-theme/email-notifications-for-wp-ulike/email.php.
  *
  * HOWEVER, on occasion Email Notifications For WP ULike will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to

@@ -9,6 +9,9 @@
     "composer/installers": "1.7.0"
   },
    "autoload": {
+    "files": [
+        "functions.php"
+    ],
     "psr-4": {
         "EmailNotificationsForWPULike\\": "src/"
     }

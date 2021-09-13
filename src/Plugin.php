@@ -136,7 +136,7 @@ final class Plugin {
 		if ( $author_email && is_email( $author_email ) ) {
 
 			$header = array( 'Content-Type: text/html; charset=UTF-8' );
-			wp_mail( $author_email, $subject, $message, $header );
+			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), $header );
 		}
 	}
 

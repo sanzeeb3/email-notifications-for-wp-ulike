@@ -88,7 +88,7 @@ class Milestones {
 			$message = ! empty( $milestones_settings['milestone_like_email_message'] ) ? $milestones_settings['milestone_like_email_message'] : $message;
 			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $comment_id );
 
-			wp_mail( $author_email, $subject, $message, $header );
+			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), $header );
 		}
 	}
 

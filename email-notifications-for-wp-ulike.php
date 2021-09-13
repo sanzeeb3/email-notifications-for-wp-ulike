@@ -18,6 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 define( 'EMAIL_NOTIFICATIONS_FOR_WP_ULIKE', __FILE__ );
+define( 'EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_PLUGIN_PATH', __DIR__ );
 
 /**
  * Plugin version.

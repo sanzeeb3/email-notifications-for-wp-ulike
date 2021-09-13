@@ -85,7 +85,7 @@ class Summary {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @return void.
+	 * @return bool.
 	 */
 	public function send() {
 
@@ -108,23 +108,11 @@ class Summary {
 
 		$message = wpautop( $this->get_weekly_summary_email_message( $top_posts ) );
 
-		ob_start();
-
-		// Allow themes to override the template.
-		$template = locate_template(
-			'email-notifications-for-wp-ulike/template.php'
-		);
-
-		// Themes's template should be given the priority.
-		if ( ! file_exists( $template ) ) {
-			$template = 'templates/template.php';
-		}
-
-		include $template;
-
-		$email = ob_get_clean();
+		$email = \en_wpulike_get_email_message_with_template( $message );
 
 		$sent = wp_mail( $send_to, $subject, $email, $header );
+
+		return $sent;
 	}
 
 	/**
