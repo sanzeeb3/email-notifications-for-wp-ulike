@@ -12,13 +12,14 @@ Sends email notification whenever you got a like on a post or comment.
 
 == Description ==
 
-**Sends an email notification:**
+**Making the Most Advanced WordPress Marketing Toolkit, even more advanced.**
+
+**Send an email notification:**
 
 * To the writers (post authors) whenever they got a like on their post or comment. 👍 >> 📧
 * To the administrator regarding how your contents are performing in terms of LIKES - sent weekly.
 * On milestones 🏆 - whenever your (post authors) contents reaches a milestones of 50, 100, or (you set the milestone) LIKES.
 
-**Making the Most Advanced WordPress Marketing Toolkit, even more advanced.**
 
 [WP ULike](https://wordpress.org/plugins/wp-ulike/) plugin is required.
 
@@ -37,6 +38,9 @@ Send reports to [the GitHub Repository](https://github.com/sanzeeb3/email-notifi
 No questions yet.
 
 == Changelog ==
+
+= 1.3.0 - xx/xx/2021 =
+* Feature - Milestones.
 
 = 1.2.0 - 09/10/2021 =
 * Feature - Unsubscription smart tag {unsubscribe}

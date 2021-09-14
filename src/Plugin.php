@@ -185,6 +185,8 @@ final class Plugin {
 	 * @param  int    $post_id      A post ID.
 	 * @param  int    $comment_id   A comment ID.
 	 *
+	 * @todo:: Improve search and replace.
+	 *
 	 * @since 1.1.2
 	 *
 	 * @return string Final email message.
