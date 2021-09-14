@@ -45,7 +45,7 @@ final class Plugin {
 	 */
 	public function init() {
 
-		$classes = array( 'Settings', 'Unsubscribe', 'Summary', 'Milestones' );
+		$classes = array( 'Settings', 'Unsubscribe', 'Summary', 'Milestones', 'Templates' );
 
 		foreach ( $classes as $class ) {
 			if ( \class_exists( __NAMESPACE__ . '\\' . $class ) ) {
@@ -134,9 +134,7 @@ final class Plugin {
 
 		// Now send.
 		if ( $author_email && is_email( $author_email ) ) {
-
-			$header = array( 'Content-Type: text/html; charset=UTF-8' );
-			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), $header );
+			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), \en_wpulike_get_email_header() );
 		}
 	}
 

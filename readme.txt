@@ -12,8 +12,6 @@ Sends email notification whenever you got a like on a post or comment.
 
 == Description ==
 
-**Making the Most Advanced WordPress Marketing Toolkit, even more advanced.**
-
 **Send an email notification:**
 
 * To the writers (post authors) whenever they got a like on their post or comment. 👍 >> 📧

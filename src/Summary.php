@@ -102,7 +102,6 @@ class Summary {
 			return;
 		}
 
-		$header  = array( 'Content-Type: text/html; charset=UTF-8' );
 		$subject = apply_filters( 'email_notifications_for_wp_ulike_weekly_summary_email_subject', esc_html__( 'Weekly Likes ❤️', 'email-notifications-for-wp-ulike' ) );
 		$send_to = apply_filters( 'email_notifications_for_wp_ulike_weekly_summary_email_receipent', get_option( 'admin_email' ) );
 
@@ -110,7 +109,7 @@ class Summary {
 
 		$email = \en_wpulike_get_email_message_with_template( $message );
 
-		$sent = wp_mail( $send_to, $subject, $email, $header );
+		$sent = wp_mail( $send_to, $subject, $email, \en_wpulike_get_email_header() );
 
 		return $sent;
 	}
@@ -140,7 +139,7 @@ class Summary {
 
 Let\'s see how your contents performed in the past week in terms of LIKES.
 
-the Top 5 posts this past week:
+The top 5 posts this past week:
 
 %1$s
 

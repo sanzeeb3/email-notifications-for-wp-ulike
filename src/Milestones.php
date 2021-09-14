@@ -79,16 +79,15 @@ class Milestones {
 		}
 
 		// Now send.
-		if ( $author_email && is_email( $author_email ) && in_array(  $total_likes, $milestone ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+		if ( $author_email && is_email( $author_email ) && in_array( $total_likes, $milestone ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 
-			$header  = array( 'Content-Type: text/html; charset=UTF-8' );
 			$subject = esc_html__( 'Congratulations! You reached a milestone! 🎉', 'email-notifications-for-wp-ulike' );
 			$subject = ! empty( $milestones_settings['milestone_like_email_subject'] ) ? $milestones_settings['milestone_like_email_subject'] : $subject;
 			$message = self::get_default_milestone_email_message();
 			$message = ! empty( $milestones_settings['milestone_like_email_message'] ) ? $milestones_settings['milestone_like_email_message'] : $message;
 			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $comment_id );
 
-			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), $header );
+			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), \en_wpulike_get_email_header() );
 		}
 	}
 
