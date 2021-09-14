@@ -71,7 +71,7 @@ class Templates {
 								),
 							)
 						),
-						'https://sanjeebaryal.com.np/'
+						'https://sanjeebaryal.com.np/customize-the-email-template-for-wp-ulike-emails'
 					),
 				),
 			),
