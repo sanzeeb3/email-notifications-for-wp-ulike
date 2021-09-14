@@ -39,6 +39,7 @@ No questions yet.
 
 = 1.3.0 - xx/xx/2021 =
 * Feature - Milestones.
+* Feature - Templates.
 
 = 1.2.0 - 09/10/2021 =
 * Feature - Unsubscription smart tag {unsubscribe}
