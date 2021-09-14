@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 
 $settings 		  = get_option( 'wp_ulike_settings' );
 $background_color = ! empty( $settings['templates_group']['background_color'] ) ? $settings['templates_group']['background_color']  : '#f7f7f7';
-$border_color = $background_color = ! empty( $settings['templates_group']['border_color'] ) ? $settings['templates_group']['border_color']  : '#FFFFFF';
+$border_color = ! empty( $settings['templates_group']['border_color'] ) ? $settings['templates_group']['border_color']  : '#FFFFFF';
 
 $footer_text     = apply_filters( 'email_notifications_for_wp_ulike_email_footer_text', sprintf( /* translators: %1$s - Blog URL; %2$s - Blog Title. */ __( '<a href="%1$1s">%2$2s</a>', 'email-notifications-for-wp-ulike' ), get_bloginfo( 'url' ), get_bloginfo() ) );
 
@@ -35,7 +35,7 @@ $footer_text     = apply_filters( 'email_notifications_for_wp_ulike_email_footer
 		</style>
 	</head>
 	<body>
-		<table width="100%" bgcolor="<?php echo esc_attr( $backgound_color ); ?>" style="border: 0.5px solid <?php echo esc_attr( $border_color);?> " cellpadding="0" cellspacing="0">
+		<table width="100%" bgcolor="<?php echo esc_attr( $background_color ); ?>" style="border: 0.5px solid <?php echo esc_attr( $border_color);?> " cellpadding="0" cellspacing="0">
 			<tr>
 				<td>
 					<table class="content" cellpadding="0" cellspacing="0" border="0">
