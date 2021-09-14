@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Email Notifications For WP ULike package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Notifications For WP ULike 1.2.0\n"
+"Project-Id-Version: Email Notifications For WP ULike 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-10 12:52:36+00:00\n"
+"POT-Creation-Date: 2021-09-14 16:57:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,8 +13,73 @@ msgstr ""
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: src/Plugin.php:105 src/Plugin.php:120 src/Settings.php:112
-#: src/Settings.php:160
+#: src/Milestones.php:84 src/Milestones.php:134
+msgid "Congratulations! You reached a milestone! 🎉"
+msgstr ""
+
+#: src/Milestones.php:106
+msgid "Milestones Emails 🏆 <br><br> (posts and comments milestones)."
+msgstr ""
+
+#: src/Milestones.php:111
+msgid "Enable Milestone Emails For Posts"
+msgstr ""
+
+#: src/Milestones.php:113
+msgid ""
+"An email sent to the author of the post when the post reaches the "
+"milestones."
+msgstr ""
+
+#: src/Milestones.php:118
+msgid "Enable Milestone Emails For Comments"
+msgstr ""
+
+#: src/Milestones.php:120
+msgid "An email sent to commenter when the comment reaches the milestones."
+msgstr ""
+
+#: src/Milestones.php:125
+msgid "Milestones 🏆"
+msgstr ""
+
+#: src/Milestones.php:127
+msgid ""
+"A milestone LIKES when the email is to be sent. Default: 50 likes which "
+"means the email is sent when the post or comment reached 50 likes. Multiple "
+"milestones can be entered separated by comma."
+msgstr ""
+
+#: src/Milestones.php:133
+msgid "Email Subject For Milestone LIKES"
+msgstr ""
+
+#: src/Milestones.php:135
+msgid ""
+"Email subject to the email sent when the post or comment reaches the "
+"milestone."
+msgstr ""
+
+#: src/Milestones.php:141
+msgid "Email Message for Milestone LIKES"
+msgstr ""
+
+#: src/Milestones.php:143
+msgid "Email message when the post or comment reaches a milestone."
+msgstr ""
+
+#: src/Milestones.php:149
+msgid "Do not send milestone email to specific author or post"
+msgstr ""
+
+#: src/Milestones.php:151 src/Settings.php:131
+msgid ""
+"Add author email, post ID or post URL to not send email to, separated by "
+"comma."
+msgstr ""
+
+#: src/Plugin.php:105 src/Plugin.php:120 src/Settings.php:114
+#: src/Settings.php:162
 msgid "You got a like! ❤️"
 msgstr ""
 
@@ -30,11 +95,11 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: src/Settings.php:61
+#: src/Settings.php:63
 msgid "Boost my motivation?"
 msgstr ""
 
-#: src/Settings.php:68
+#: src/Settings.php:70
 #. translators: %1$s - WP.org link; %2$s - same WP.org link.
 msgid ""
 "Please rate <strong>Email Notifications For WP ULike</strong> <a "
@@ -44,69 +109,63 @@ msgid ""
 "spread the word. Thank you!"
 msgstr ""
 
-#: src/Settings.php:103
+#: src/Settings.php:105
 msgid "Enable Notifications on posts LIKES"
 msgstr ""
 
-#: src/Settings.php:105
+#: src/Settings.php:107
 msgid "Email Notification sent to post author when the post gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:111
+#: src/Settings.php:113
 msgid "Email Subject For post LIKES"
 msgstr ""
 
-#: src/Settings.php:113
+#: src/Settings.php:115
 msgid "Email subject to the email sent when the post gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:119
+#: src/Settings.php:121
 msgid "Email Message for post LIKES"
 msgstr ""
 
-#: src/Settings.php:121
+#: src/Settings.php:123
 msgid "Email message when the post gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:127
+#: src/Settings.php:129
 msgid "Do not send email to specific author or post"
 msgstr ""
 
-#: src/Settings.php:129
-msgid ""
-"Add author email, post ID or post URL to not send email to, separated by "
-"comma."
-msgstr ""
-
-#: src/Settings.php:151
+#: src/Settings.php:153
 msgid "Enable Notifications on comments LIKES"
 msgstr ""
 
-#: src/Settings.php:153
+#: src/Settings.php:155
 msgid "Email Notification sent to comment author when the comment gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:159
+#: src/Settings.php:161
 msgid "Email Subject For comment LIKES"
 msgstr ""
 
-#: src/Settings.php:161
+#: src/Settings.php:163
 msgid "Email subject to the email sent when the comment gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:167
+#: src/Settings.php:169
 msgid "Email Message for comment LIKES"
 msgstr ""
 
-#: src/Settings.php:169
+#: src/Settings.php:171
 msgid "Email message when the comment gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:175
+#: src/Settings.php:177
 msgid "Do not send email to specific author or comment"
 msgstr ""
 
-#: src/Settings.php:177
+#: src/Settings.php:179
 msgid "Add author email or comment ID to not send email to, separated by comma."
 msgstr ""
 
@@ -124,25 +183,67 @@ msgid ""
 "email is by default sent to site administrator."
 msgstr ""
 
-#: src/Summary.php:106
+#: src/Summary.php:105
 msgid "Weekly Likes ❤️"
 msgstr ""
 
-#: src/Summary.php:150
+#: src/Summary.php:137
 #. translators: %1$s - top liked posts
 msgid ""
 "<b>Hi there,</b>\r\n"
 "\r\n"
 "Let's see how your contents performed in the past week in terms of LIKES.\r\n"
 "\r\n"
-"the Top 5 posts this past week:\r\n"
+"The top 5 posts this past week:\r\n"
 "\r\n"
 "%1$s\r\n"
 "\r\n"
 msgstr ""
 
-#: src/templates/template.php:21
-msgid "Sent from <a href=\"%1$1s\">%2$2s</a>"
+#: src/Templates.php:35
+msgid "Customize the email"
+msgstr ""
+
+#: src/Templates.php:40
+msgid "Enable HTML email"
+msgstr ""
+
+#: src/Templates.php:42
+msgid ""
+"For best experience, HTML email is recommended. If disabled, plain text "
+"email will be sent, which is optimal for email delivery."
+msgstr ""
+
+#: src/Templates.php:47
+msgid "Background color"
+msgstr ""
+
+#: src/Templates.php:49
+msgid "Background color of email body"
+msgstr ""
+
+#: src/Templates.php:54
+msgid "Border Color"
+msgstr ""
+
+#: src/Templates.php:56
+msgid "Border color of the email body."
+msgstr ""
+
+#: src/Templates.php:61
+msgid "Customize the email template"
+msgstr ""
+
+#: src/Templates.php:64
+#. translators: %1$s - doc link.
+msgid ""
+"<a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">Learn to "
+"fully customize the email template.</a>"
+msgstr ""
+
+#: templates/email.php:24
+#. translators: %1$s - Blog URL; %2$s - Blog Title.
+msgid "<a href=\"%1$1s\">%2$2s</a>"
 msgstr ""
 
 #. Plugin Name of the plugin/theme

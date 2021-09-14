@@ -4,7 +4,7 @@ Tags: wp ulike, wp-ulike, emails
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,7 +37,7 @@ No questions yet.
 
 == Changelog ==
 
-= 1.3.0 - xx/xx/2021 =
+= 1.3.0 - 09/14/2021 =
 * Feature - Milestones.
 * Feature - Templates.
 
