@@ -194,23 +194,23 @@ final class Plugin {
 		// It's the comment being liked.
 		if ( ! empty( $comment_id ) ) {
 
-			$message = str_replace( '{total_comment_likes}', wp_ulike_get_comment_likes( $comment_id ), $message );
-			$message = str_replace( '{comment}', '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), $message );
-			$message = str_replace( '{post/comment}', 'comment', $message );
-			$message = str_replace( '{title}', '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), $message );
+			$tags    = array( '{total_comment_likes}', '{comment}', '{post/comment}', '{title}', '{milestone}' );
+			$replace = array( wp_ulike_get_comment_likes( $comment_id ), '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), 'comment', '<i>' . wpautop( get_comment_text( $comment_id ) . '</i>', true ), wp_ulike_get_comment_likes( $comment_id ) );
 
-			$message = str_replace( '{milestone}', wp_ulike_get_comment_likes( $comment_id ), $message );
+			$message = str_replace( $tags, $replace, $message );
 
 		} else {
-			$message = str_replace( '{post/comment}', 'post', $message );
-			$message = str_replace( '{title}', '<i>' . get_the_title( $post_id ) . '</i>', $message );
 
-			$message = str_replace( '{milestone}', wp_ulike_get_post_likes( $post_id ), $message );
+			$tags    = array( '{post/comment}', '{title}', '{milestone}' );
+			$replace = array( 'post', '<i>' . get_the_title( $post_id ) . '</i>', wp_ulike_get_post_likes( $post_id ) );
+
+			$message = str_replace( $tags, $replace, $message );
 		}
 
-		$message = str_replace( '{post_title}', '<i>' . get_the_title( $post_id ) . '</i>', $message );
-		$message = str_replace( '{total_post_likes}', wp_ulike_get_post_likes( $post_id ), $message );
-		$message = str_replace( '{post_link}', get_permalink( $post_id ), $message );
+		$tags    = array( '{post_title}', '{total_post_likes}', '{post_link}' );
+		$replace = array( '<i>' . get_the_title( $post_id ) . '</i>', wp_ulike_get_post_likes( $post_id ), get_permalink( $post_id ) );
+
+		$message = str_replace( $tags, $replace, $message );
 
 		return $message;
 	}
