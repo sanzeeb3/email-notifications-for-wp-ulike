@@ -4,7 +4,7 @@ Tags: wp ulike, wp-ulike, emails
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,9 @@ Send reports to [the GitHub Repository](https://github.com/sanzeeb3/email-notifi
 No questions yet.
 
 == Changelog ==
+
+= 1.3.0 - xx/xx/2021 =
+* Feature - Send emails asynchronously.
 
 = 1.3.0 - 09/14/2021 =
 * Feature - Milestones.
