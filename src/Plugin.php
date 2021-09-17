@@ -59,6 +59,10 @@ final class Plugin {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		add_action( 'wp_ulike_after_process', array( $this, 'process_email_send' ), 10, 4 );
+
+		// Asynchronously sending emails.
+		add_action( 'email_notifications_for_wp_ulike_process_asynchronous_emails', array( $this, 'send' ), 20, 4 ); 
+
 		add_filter( 'email_notifications_for_wp_ulike_email_message', array( $this, 'process_smart_tags' ), 10, 3 );
 	}
 
@@ -90,14 +94,36 @@ final class Plugin {
 	 *
 	 * @since 1.1.2
 	 *
+	 */
+	public function process_email_send( $id, $key, $user_id, $status ) {
+
+		$settings     = get_option( 'wp_ulike_settings' );
+		$asynchronous = ! empty( $settings['asynchronous_group']['send_emails_asynchronously_enable'] ) ? $settings['asynchronous_group']['send_emails_asynchronously_enable'] : false;
+
+		if ( ! $asynchronous || ! function_exists( 'as_next_scheduled_action' ) ) {
+			$this->send( $id, $key, $user_id, $status );
+		} else {
+			as_enqueue_async_action( 'email_notifications_for_wp_ulike_process_asynchronous_emails', array( $id, $key, $user_id, $status ), 'email_notifications_for_wp_ulike' );
+		}
+	}
+
+	/**
+	 * Send the email now.
+	 *
+	 * @since 1.4.0 Fragment the methond process_email_send into send to process asynchronous.
+	 *
+	 * @param int    $id post or comment ID.
+	 * @param string $key liked or comment liked.
+	 * @param int    $user_id User ID.
+	 * @param string $status like or dislike.
+	 * 
 	 * @return bool|void true when the email is sent.
 	 */
-	public function process_email_send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
-
-		$settings = get_option( 'wp_ulike_settings' );
+	public function send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		if ( '_liked' === $key && 'like' === $status ) {
 
+			$settings     = get_option( 'wp_ulike_settings' );
 			$email_settings = $settings['posts_group'];
 			$author_id      = get_post_field( 'post_author', $id );
 			$author_email   = get_the_author_meta( 'user_email', $author_id );

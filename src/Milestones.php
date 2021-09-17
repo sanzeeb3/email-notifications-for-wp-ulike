@@ -18,6 +18,7 @@ class Milestones {
 	 */
 	public function init() {
 		add_action( 'wp_ulike_after_process', array( $this, 'process_email_send' ), 20, 4 );
+		add_action( 'email_notifications_for_wp_ulike_process_asynchronous_milestone_emails', array( $this, 'send' ), 20, 4 );
 	}
 
 	/**
@@ -34,9 +35,33 @@ class Milestones {
 	 *
 	 * @return bool.
 	 */
-	public function process_email_send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function process_email_send( $id, $key, $user_id, $status ) {
 
-		$settings            = get_option( 'wp_ulike_settings' );
+		$settings     = get_option( 'wp_ulike_settings' );
+		$asynchronous = ! empty( $settings['asynchronous_group']['send_emails_asynchronously_enable'] ) ? $settings['asynchronous_group']['send_emails_asynchronously_enable'] : false;
+
+		if ( ! $asynchronous || ! function_exists( 'as_next_scheduled_action' ) ) {
+			$this->send( $id, $key, $user_id, $status );
+		} else {
+			as_enqueue_async_action( 'email_notifications_for_wp_ulike_process_asynchronous_milestone_emails', array( $id, $key, $user_id, $status ), 'email_notifications_for_wp_ulike' );
+		}
+	}
+
+	/**
+	 * Send the email now.
+	 *
+     * @since 1.4.0 Fragment the methond process_email_send into send to process asynchronous.
+	 *
+	 * @param int    $id post or comment ID, actually id of the content being liked.
+	 * @param string $key post liked or comment liked.
+	 * @param int    $user_id User ID.
+	 * @param string $status like or dislike.
+	 *
+     * @todo simplify this method. Merge with Plugin.php 's send method.
+     *
+	 */
+	public function send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+
 		$milestones_settings = isset( $settings['milestones_group'] ) ? $settings['milestones_group'] : array();
 		$milestone           = ! empty( $milestones_settings['milestone'] ) ? $milestones_settings['milestone'] : '50';
 		$milestone           = explode( ',', $milestone );
