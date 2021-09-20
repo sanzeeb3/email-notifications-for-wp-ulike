@@ -38,8 +38,6 @@ class Milestones {
 
 		$settings            = get_option( 'wp_ulike_settings' );
 		$milestones_settings = isset( $settings['milestones_group'] ) ? $settings['milestones_group'] : array();
-		$milestone           = ! empty( $milestones_settings['milestone'] ) ? $milestones_settings['milestone'] : '50';
-		$milestone           = explode( ',', $milestone );
 
 		if ( '_liked' === $key && 'like' === $status ) {
 
@@ -84,6 +82,9 @@ class Milestones {
 		$message      = self::get_default_milestone_email_message();
 		$message      = ! empty( $milestones_settings['milestone_like_email_message'] ) ? $milestones_settings['milestone_like_email_message'] : $message;
 		$message      = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $comment_id );
+
+		$milestone = ! empty( $milestones_settings['milestone'] ) ? $milestones_settings['milestone'] : '50';
+		$milestone = explode( ',', $milestone );
 
 		if ( in_array( $total_likes, $milestone ) ) { //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 

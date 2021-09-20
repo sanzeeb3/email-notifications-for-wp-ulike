@@ -10,10 +10,10 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.4.0
  */
 class Asynchronous {
-	
+
 	/**
 	 * Initiate the class.
-	 * 
+	 *
 	 * @since 1.4.0
 	 */
 	public function init() {}
@@ -22,7 +22,6 @@ class Asynchronous {
 	 * Get settings.
 	 *
 	 * @since 1.4.0
-	 * 
 	 */
 	public static function get_asynchronous_section() {
 
@@ -38,7 +37,7 @@ class Asynchronous {
 					'default' => false,
 					'desc'    => esc_html__( 'Sending emails asynchronously in the background helps processing the like faster, but the emails can be delayed on low traffic-sites.', 'email-notifications-for-wp-ulike' ),
 				),
-			)
+			),
 		);
 	}
 }
