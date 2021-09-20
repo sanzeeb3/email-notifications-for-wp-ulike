@@ -95,35 +95,11 @@ final class Plugin {
 	 * @since 1.1.2
 	 *
 	 */
-	public function process_email_send( $id, $key, $user_id, $status ) {
-
-		$settings     = get_option( 'wp_ulike_settings' );
-		$asynchronous = ! empty( $settings['asynchronous_group']['send_emails_asynchronously_enable'] ) ? $settings['asynchronous_group']['send_emails_asynchronously_enable'] : false;
-
-		if ( ! $asynchronous || ! function_exists( 'as_next_scheduled_action' ) ) {
-			$this->send( $id, $key, $user_id, $status );
-		} else {
-			as_enqueue_async_action( 'email_notifications_for_wp_ulike_process_asynchronous_emails', array( $id, $key, $user_id, $status ), 'email_notifications_for_wp_ulike' );
-		}
-	}
-
-	/**
-	 * Send the email now.
-	 *
-	 * @since 1.4.0 Fragment the methond process_email_send into send to process asynchronous.
-	 *
-	 * @param int    $id post or comment ID.
-	 * @param string $key liked or comment liked.
-	 * @param int    $user_id User ID.
-	 * @param string $status like or dislike.
-	 * 
-	 * @return bool|void true when the email is sent.
-	 */
-	public function send( $id, $key, $user_id, $status ) { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function process_email_send( $id, $key, $user_id, $status ) {  //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		if ( '_liked' === $key && 'like' === $status ) {
 
-			$settings     = get_option( 'wp_ulike_settings' );
+			$settings       = get_option( 'wp_ulike_settings' );
 			$email_settings = $settings['posts_group'];
 			$author_id      = get_post_field( 'post_author', $id );
 			$author_email   = get_the_author_meta( 'user_email', $author_id );
@@ -145,7 +121,7 @@ final class Plugin {
 			$author_email   = ! empty( $comment->comment_author_email ) ? $comment->comment_author_email : '';
 			$subject        = ! empty( $email_settings['comment_like_email_suject'] ) ? $email_settings['comment_like_email_suject'] : esc_html__( 'You got a like! ❤️', 'email-notifications-for-wp-ulike' );
 
-			$message = ! empty( $email_settings['comment_like_email_message'] ) ? $email_settings['comment_like_email_message'] : Settings::get_default_post_email_message();
+			$message = ! empty( $email_settings['comment_like_email_message'] ) ? $email_settings['comment_like_email_message'] : Settings::get_default_comment_email_message();
 			$post_id = $comment->comment_post_ID;
 			$message = apply_filters( 'email_notifications_for_wp_ulike_email_message', wpautop( $message ), $post_id, $id );
 
@@ -158,10 +134,34 @@ final class Plugin {
 			return;
 		}//end if
 
-		// Now send.
-		if ( $author_email && is_email( $author_email ) ) {
-			wp_mail( $author_email, $subject, \en_wpulike_get_email_message_with_template( $message ), \en_wpulike_get_email_header() );
+		$asynchronous = ! empty( $settings['asynchronous_group']['send_emails_asynchronously_enable'] ) ? $settings['asynchronous_group']['send_emails_asynchronously_enable'] : false;
+
+		if ( ! $asynchronous ) {
+			$this->send( $author_email, $subject, $message );
+		} else {
+			as_enqueue_async_action( 'email_notifications_for_wp_ulike_process_asynchronous_emails', array( $author_email, $subject, $message ), 'email_notifications_for_wp_ulike' );
 		}
+	}
+
+	/**
+	 * Send the email now.
+	 *
+	 * @since 1.4.0 Fragment the methond process_email_send into send to process asynchronous.
+	 *
+	 * @param string $email The email address to send an email to.
+	 * @param string $subject The subject of an email.
+	 * @param string $message Email Message.
+	 * 
+	 * @return bool|void true when the email is sent.
+	 */
+	public function send( $email, $subject, $message ) {
+
+		// Now send.
+		if ( $email && is_email( $email ) ) {
+			$sent = wp_mail( $email, $subject, \en_wpulike_get_email_message_with_template( $message ), \en_wpulike_get_email_header() );
+		}
+
+		do_action( 'email_notifications_for_wp_ulike_after_email_sent', $sent );
 	}
 
 	/**

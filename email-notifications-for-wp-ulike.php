@@ -28,6 +28,7 @@ define( 'EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_PLUGIN_PATH', __DIR__ );
 const EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION = '1.3.0';
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 
 /**
  * Return the main instance of Plugin Class.

@@ -63,11 +63,6 @@ class Summary {
 	 */
 	public function schedule_summary_email() {
 
-		// Return if action scheduler is not installed in the site.
-		if ( ! function_exists( 'as_next_scheduled_action' ) ) {
-			return;
-		}
-
 		$settings = get_option( 'wp_ulike_settings' );
 
 		// Return if email summary is not enabled.
