@@ -1,3 +1,12 @@
 .enfwpul-smart-tags {
 	float: right;
 }
+
+.enfwpul-smart-tags a {
+	color: #23282d;
+	text-decoration: none;
+}
+
+.enfwpul-smart-tags a:hover {
+	text-decoration: underline;
+}
