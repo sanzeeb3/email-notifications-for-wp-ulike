@@ -52,6 +52,14 @@ class Settings {
 			EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION,
 			'all'
 		);
+
+		wp_localize_script(
+			'admin-script',
+			'enfwpul_params',
+			array(
+				'show_smart_tags' => esc_html__( 'Show Smart Tags', 'email-notifications-for-wp-ulike' ),
+			)
+		);
 	}
 
 	/**
