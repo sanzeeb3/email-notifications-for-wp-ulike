@@ -25,7 +25,7 @@ Emails are customizable from WP ULike settings.
 
 Follow the [documentation](https://sanjeebaryal.com.np/get-an-email-notification-when-your-post-or-comment-gets-a-like/) for more information.
 
-Send reports to [the GitHub Repository](https://github.com/sanzeeb3/email-notifications-for-wp-ulike).
+Contributions of any kind are welcome. Visit the [GitHub Repository](https://github.com/sanzeeb3/email-notifications-for-wp-ulike).
 
 == Screenshots ==
 
@@ -37,7 +37,7 @@ No questions yet.
 
 == Changelog ==
 
-= 1.3.0 - xx/xx/2021 =
+= 1.4.0 - 09/22/2021 =
 * Feature - Send emails asynchronously.
 
 = 1.3.0 - 09/14/2021 =

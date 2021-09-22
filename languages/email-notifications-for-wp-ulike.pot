@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Email Notifications For WP ULike package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Notifications For WP ULike 1.3.0\n"
+"Project-Id-Version: Email Notifications For WP ULike 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 16:57:24+00:00\n"
+"POT-Creation-Date: 2021-09-22 03:12:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,73 +13,87 @@ msgstr ""
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: src/Milestones.php:84 src/Milestones.php:134
+#: src/Asynchronous.php:31
+msgid "Send emails asynchronously"
+msgstr ""
+
+#: src/Asynchronous.php:36
+msgid "Enable sending emails asynchronously"
+msgstr ""
+
+#: src/Asynchronous.php:38
+msgid ""
+"Sending emails asynchronously in the background helps processing the like "
+"faster, but the emails can be delayed on low traffic-sites."
+msgstr ""
+
+#: src/Milestones.php:80 src/Milestones.php:140
 msgid "Congratulations! You reached a milestone! 🎉"
 msgstr ""
 
-#: src/Milestones.php:106
+#: src/Milestones.php:112
 msgid "Milestones Emails 🏆 <br><br> (posts and comments milestones)."
 msgstr ""
 
-#: src/Milestones.php:111
+#: src/Milestones.php:117
 msgid "Enable Milestone Emails For Posts"
 msgstr ""
 
-#: src/Milestones.php:113
+#: src/Milestones.php:119
 msgid ""
 "An email sent to the author of the post when the post reaches the "
 "milestones."
 msgstr ""
 
-#: src/Milestones.php:118
+#: src/Milestones.php:124
 msgid "Enable Milestone Emails For Comments"
 msgstr ""
 
-#: src/Milestones.php:120
+#: src/Milestones.php:126
 msgid "An email sent to commenter when the comment reaches the milestones."
 msgstr ""
 
-#: src/Milestones.php:125
+#: src/Milestones.php:131
 msgid "Milestones 🏆"
 msgstr ""
 
-#: src/Milestones.php:127
+#: src/Milestones.php:133
 msgid ""
 "A milestone LIKES when the email is to be sent. Default: 50 likes which "
 "means the email is sent when the post or comment reached 50 likes. Multiple "
 "milestones can be entered separated by comma."
 msgstr ""
 
-#: src/Milestones.php:133
+#: src/Milestones.php:139
 msgid "Email Subject For Milestone LIKES"
 msgstr ""
 
-#: src/Milestones.php:135
+#: src/Milestones.php:141
 msgid ""
 "Email subject to the email sent when the post or comment reaches the "
 "milestone."
 msgstr ""
 
-#: src/Milestones.php:141
+#: src/Milestones.php:147
 msgid "Email Message for Milestone LIKES"
 msgstr ""
 
-#: src/Milestones.php:143
+#: src/Milestones.php:149
 msgid "Email message when the post or comment reaches a milestone."
 msgstr ""
 
-#: src/Milestones.php:149
+#: src/Milestones.php:155
 msgid "Do not send milestone email to specific author or post"
 msgstr ""
 
-#: src/Milestones.php:151 src/Settings.php:131
+#: src/Milestones.php:157 src/Settings.php:132
 msgid ""
 "Add author email, post ID or post URL to not send email to, separated by "
 "comma."
 msgstr ""
 
-#: src/Plugin.php:105 src/Plugin.php:120 src/Settings.php:114
-#: src/Settings.php:162
+#: src/Plugin.php:113 src/Plugin.php:130 src/Settings.php:115
+#: src/Settings.php:163
 msgid "You got a like! ❤️"
 msgstr ""
 
@@ -95,11 +109,11 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: src/Settings.php:63
+#: src/Settings.php:64
 msgid "Boost my motivation?"
 msgstr ""
 
-#: src/Settings.php:70
+#: src/Settings.php:71
 #. translators: %1$s - WP.org link; %2$s - same WP.org link.
 msgid ""
 "Please rate <strong>Email Notifications For WP ULike</strong> <a "
@@ -109,63 +123,63 @@ msgid ""
 "spread the word. Thank you!"
 msgstr ""
 
-#: src/Settings.php:105
+#: src/Settings.php:106
 msgid "Enable Notifications on posts LIKES"
 msgstr ""
 
-#: src/Settings.php:107
+#: src/Settings.php:108
 msgid "Email Notification sent to post author when the post gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:113
+#: src/Settings.php:114
 msgid "Email Subject For post LIKES"
 msgstr ""
 
-#: src/Settings.php:115
+#: src/Settings.php:116
 msgid "Email subject to the email sent when the post gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:121
+#: src/Settings.php:122
 msgid "Email Message for post LIKES"
 msgstr ""
 
-#: src/Settings.php:123
+#: src/Settings.php:124
 msgid "Email message when the post gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:129
+#: src/Settings.php:130
 msgid "Do not send email to specific author or post"
 msgstr ""
 
-#: src/Settings.php:153
+#: src/Settings.php:154
 msgid "Enable Notifications on comments LIKES"
 msgstr ""
 
-#: src/Settings.php:155
+#: src/Settings.php:156
 msgid "Email Notification sent to comment author when the comment gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:161
+#: src/Settings.php:162
 msgid "Email Subject For comment LIKES"
 msgstr ""
 
-#: src/Settings.php:163
+#: src/Settings.php:164
 msgid "Email subject to the email sent when the comment gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:169
+#: src/Settings.php:170
 msgid "Email Message for comment LIKES"
 msgstr ""
 
-#: src/Settings.php:171
+#: src/Settings.php:172
 msgid "Email message when the comment gets a LIKE."
 msgstr ""
 
-#: src/Settings.php:177
+#: src/Settings.php:178
 msgid "Do not send email to specific author or comment"
 msgstr ""
 
-#: src/Settings.php:179
+#: src/Settings.php:180
 msgid "Add author email or comment ID to not send email to, separated by comma."
 msgstr ""
 
@@ -183,11 +197,11 @@ msgid ""
 "email is by default sent to site administrator."
 msgstr ""
 
-#: src/Summary.php:105
+#: src/Summary.php:100
 msgid "Weekly Likes ❤️"
 msgstr ""
 
-#: src/Summary.php:137
+#: src/Summary.php:132
 #. translators: %1$s - top liked posts
 msgid ""
 "<b>Hi there,</b>\r\n"
