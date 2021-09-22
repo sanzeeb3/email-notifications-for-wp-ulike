@@ -44,6 +44,14 @@ class Settings {
 			EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION,
 			true
 		);
+
+		wp_enqueue_style(
+			'admin-style',
+			plugins_url( 'assets/css/style.css', EMAIL_NOTIFICATIONS_FOR_WP_ULIKE ),
+			array(),
+			EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION,
+			'all'
+		);
 	}
 
 	/**
