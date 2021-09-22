@@ -18,6 +18,32 @@ class Settings {
 	 */
 	public function init() {
 		add_action( 'wp_ulike_loaded', array( $this, 'add_notification_settings' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+
+	/**
+	 * Enqueue scripts for Email Notifications For WP ULike plugin.
+	 *
+	 * @since 1.5.0
+	 */
+	public function enqueue_scripts() {
+
+		$screen    = get_current_screen();
+		$screen_id = $screen ? $screen->id : '';
+
+		if ( 'toplevel_page_wp-ulike-settings' !== $screen_id ) {
+			return;
+		}
+
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_script(
+			'admin-script',
+			plugins_url( 'assets/js/script' . $suffix . '.js', EMAIL_NOTIFICATIONS_FOR_WP_ULIKE ),
+			array( 'jquery' ),
+			EMAIL_NOTIFICATIONS_FOR_WP_ULIKE_VERSION,
+			true
+		);
 	}
 
 	/**
