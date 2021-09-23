@@ -44,3 +44,6 @@ yarn.lock
 LICENSE.md
 vendor/composer/installers/**
 dist
+output.log
+docker_tag
+DOCKER_ENV
